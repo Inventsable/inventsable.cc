@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 </script>
 
 <template>
@@ -15,14 +14,17 @@
 		c-36.3,16.7-63.6,49.9-72.1,89.9H41V215h53.2v-53.2H78c9.9-41.3,42.5-73.9,83.9-83.9v16.2H215V41H161.8z M79.7,176.3v24.2H55.5
 		v-24.2H79.7z M200.5,79.7h-24.2V55.5h24.2V79.7z" />
     </svg>
-
   </div>
 </template>
 
 <style>
-svg {
-  max-width: 60px;
-  width: 60px;
+.icon-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.icon-wrapper svg {
+  width: 100%;
 }
 
 .checkpoint-0 {

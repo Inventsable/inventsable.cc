@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { getExtensionPackage, getExtensionConfig } from '@/util/github'
+import { getExtensionPackage, getExtensionConfig } from '../util/github'
 import hostIcon from './adobe-icons/host-icon.vue';
 import iconButton from './icon-button.vue';
+import { useSlots } from 'vue';
 
+useSlots();
 const props = defineProps({
   repo: {
     type: String,
@@ -56,7 +58,7 @@ const hostList = [
         <div class="card-subheader">
           <div class="card-subheader-top">
             <div class="tool-icon">
-              X
+              <slot name="logo" />
             </div>
             <div class="tool-title">
               <div class="tool-namespace">
@@ -87,7 +89,7 @@ const hostList = [
 <style>
 .card-container {
   user-select: none;
-  /* border: 2px solid red; */
+  overflow: hidden;
   border-radius: 5px 0px 0px 5px;
   height: 200px;
   display: flex;
@@ -95,6 +97,10 @@ const hostList = [
   justify-content: center;
   align-items: center;
   background-color: #fff;
+}
+
+.card-container:nth-child(n+2) {
+  margin-top: 32px;
 }
 
 .card-label {
@@ -112,6 +118,26 @@ const hostList = [
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+}
+
+.card-container:nth-child(even) {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.card-container:nth-child(even) .card-preview .card-label {
+  order: 1;
+}
+
+.card-container:nth-child(even) .card-preview {
+  order: 1;
+}
+
+.card-container:nth-child(even) .card-sidebar {
+  order: -2;
+}
+
+.card-container:nth-child(even) .card-hosts {
+  order: 2;
 }
 
 .card-image-container {
@@ -192,7 +218,7 @@ const hostList = [
   /* box-sizing: border-box; */
   width: 32px;
   height: 32px;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;

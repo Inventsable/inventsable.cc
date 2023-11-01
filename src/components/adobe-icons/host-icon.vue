@@ -16,8 +16,6 @@ const strokeType = computed((): string => props.legacy ? 'stroke' : 'fill')
 const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)`),
   strokeColor = computed((): string => `var(--${props.app.toLowerCase()}-${strokeType.value})`)
 
-console.log(fillColor)
-console.log(strokeColor)
 </script>
 
 <template>
