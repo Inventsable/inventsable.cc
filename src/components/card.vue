@@ -1,7 +1,8 @@
 <script setup lang="ts">
-
 import { getExtensionPackage, getExtensionConfig } from '@/util/github'
-// import { defineProps } from 'vue';
+import hostIcon from './adobe-icons/host-icon.vue';
+import iconButton from './icon-button.vue';
+
 const props = defineProps({
   repo: {
     type: String,
@@ -14,10 +15,16 @@ const props = defineProps({
     type: String,
   }
 })
-const data = await getExtensionPackage(props.repo);
-console.log(data);
+const pkg = await getExtensionPackage(props.repo);
+console.log(pkg);
 const config = await getExtensionConfig(props.repo);
 console.log(config)
+
+const hostList = [
+  "ILST",
+  "AEFT",
+  "PHXS"
+]
 
 </script>
 
@@ -41,13 +48,37 @@ console.log(config)
     </div>
     <div class="card-content">
       <div class="card-hosts">
-
+        <div v-for="(host, index) in hostList" :key="index" class="host-icon">
+          <hostIcon :app="host" :legacy="false" />
+        </div>
       </div>
       <div class="card-main">
-
+        <div class="card-subheader">
+          <div class="card-subheader-top">
+            <div class="tool-icon">
+              X
+            </div>
+            <div class="tool-title">
+              <div class="tool-namespace">
+                {{ pkg.name }}
+              </div>
+              <div class="tool-version">
+                {{ `v${pkg.version}` }}
+              </div>
+            </div>
+          </div>
+          <div class="card-subheader-bottom">
+            {{ pkg.description }}
+          </div>
+        </div>
+        <div class="card-actions">
+          <div class="action-btn">
+            DOWNLOAD
+          </div>
+        </div>
       </div>
-      <div class="card-code">
-
+      <div class="card-sidebar">
+        <iconButton />
       </div>
     </div>
   </div>
@@ -55,12 +86,15 @@ console.log(config)
 
 <style>
 .card-container {
+  user-select: none;
   /* border: 2px solid red; */
+  border-radius: 5px 0px 0px 5px;
   height: 200px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
 }
 
 .card-label {
@@ -74,7 +108,6 @@ console.log(config)
   width: 420px;
   height: 100%;
   overflow: hidden;
-  border-radius: 5px 0px 0px 5px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -111,25 +144,108 @@ console.log(config)
 }
 
 .card-hosts {
-  width: 50px;
+  box-sizing: border-box;
+  width: 66px;
   height: 100%;
-  border: 2px solid #000;
+  /* border: 2px solid #000; */
   display: flex;
   justify-content: start;
   flex-direction: column;
   align-items: center;
+  padding: 14px 0px;
+}
+
+.host-icon {
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  /* background-color: #000; */
+}
+
+.host-icon:nth-child(n+1):not(:first-of-type) {
+  margin-top: 6px;
 }
 
 .card-main {
   width: 100%;
   height: 100%;
-  border: 2px solid blue;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
 }
 
-.card-code {
-  width: 50px;
+.card-subheader {
+  display: flex;
+  flex-direction: wrap;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-subheader-top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+
+.tool-icon {
+  /* box-sizing: border-box; */
+  width: 32px;
+  height: 32px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tool-title {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: nowrap;
+}
+
+.tool-namespace {
+  box-sizing: border-box;
+  margin: 0px 10px;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 0.1ch;
+}
+
+.tool-version {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.2ch;
+}
+
+.card-subheader-bottom {
+  padding-top: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-btn {
+  user-select: none;
+  cursor: pointer;
+  padding: 5px 16px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.3ch;
+}
+
+.card-sidebar {
+  box-sizing: border-box;
+  width: 60px;
+  padding: 0px 0px;
   height: 100%;
-  border: 2px solid #000;
   display: flex;
   justify-content: start;
   flex-direction: column;

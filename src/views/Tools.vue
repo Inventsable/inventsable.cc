@@ -5,17 +5,14 @@ import card from '@/components/card.vue';
 <template>
   <div class="main">
     <Suspense>
-      <card repo="checkpoint" label="#21db56">
-
-
-      </card>
+      <card repo="checkpoint" label="#21db56"></card>
     </Suspense>
   </div>
 </template>
 
 <style>
 .main {
-  background-color: #fff;
+  padding-top: 40px;
   min-height: 100%;
   max-width: 800px;
   width: 100%;
