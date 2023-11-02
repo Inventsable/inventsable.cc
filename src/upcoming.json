@@ -1,0 +1,84 @@
+[
+  {
+    "package": {
+      "name": "warlock",
+      "version": "0.0.1",
+      "description": "Lorem Ipsum",
+      "homepage": "https://google.com"
+    },
+    "config": {
+      "hosts": [
+        {
+          "name": "ILST",
+          "disabled": true
+        },
+        {
+          "name": "PHXS",
+          "disabled": true
+        },
+        {
+          "name": "AEFT",
+          "disabled": true
+        }
+      ]
+    },
+    "label": "#ff0000",
+    "icon": "highlight"
+  },
+  {
+    "package": {
+      "name": "snatch",
+      "version": "2.0.1",
+      "description": "Lorem Ipsum",
+      "homepage": "https://google.com"
+    },
+    "config": {
+      "hosts": [
+        {
+          "name": "PPRO",
+          "disabled": true
+        },
+        {
+          "name": "AEFT",
+          "disabled": true
+        }
+      ]
+    },
+    "label": "#ff0000",
+    "icon": "system_update_alt"
+  },
+  {
+    "package": {
+      "name": "keylo",
+      "version": "0.0.1",
+      "description": "Lorem Ipsum",
+      "homepage": "https://google.com"
+    },
+    "config": {
+      "hosts": [
+        {
+          "name": "ILST",
+          "disabled": true
+        },
+        {
+          "name": "PHXS",
+          "disabled": true
+        },
+        {
+          "name": "AEFT",
+          "disabled": true
+        },
+        {
+          "name": "PPRO",
+          "disabled": true
+        },
+        {
+          "name": "IDSN",
+          "disabled": true
+        }
+      ]
+    },
+    "label": "#ff0000",
+    "icon": "keyboard_alt"
+  }
+]

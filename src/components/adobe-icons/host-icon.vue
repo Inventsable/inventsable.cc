@@ -1,20 +1,26 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-const props = defineProps({
-  app: {
-    required: true,
-    type: String,
-  },
-  legacy: {
-    required: true,
-    type: Boolean
-  }
+interface Props {
+  app: string;
+  legacy?: boolean;
+  disabled?: boolean;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  app: 'ILST',
+  legacy: false,
+  disabled: false,
 })
 
-const strokeType = computed((): string => props.legacy ? 'stroke' : 'fill')
-const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)`),
-  strokeColor = computed((): string => `var(--${props.app.toLowerCase()}-${strokeType.value})`)
+console.log(props.app, props.disabled)
+
+const strokeType = computed((): string => {
+  if (props.disabled) return 'fill'
+  else return props.legacy ? 'stroke' : 'fill'
+})
+const fillColor = computed((): string => props.disabled ? `var(--host-disabled)` : `var(--${props.app.toLowerCase()}-fill)`),
+  strokeColor = computed((): string => props.disabled ? `var(--host-disabled)` : `var(--${props.app.toLowerCase()}-${strokeType.value})`)
 
 </script>
 
@@ -35,7 +41,7 @@ const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)
           d="M240,19.7v216c0,2.2-1.8,4-4,4H20c-2.2,0-4-1.8-4-4v-216c0-2.2,1.8-4,4-4h216C238.2,15.7,240,17.5,240,19.7z" />
       </g>
       <g class="host-logo">
-        <path v-if="props.app == 'ILST'" class="host-ilst" d="M173.4,91.9v89.6h19V91.9H173.4z M190.8,60.2c-1.8-1.9-4.5-2.8-7.8-2.8c-3.5,0-6.1,1-8,2.8
+        <path v-if="props.app == 'ILST'" class="host-ilst" :class="{ disabled: props.disabled }" d="M173.4,91.9v89.6h19V91.9H173.4z M190.8,60.2c-1.8-1.9-4.5-2.8-7.8-2.8c-3.5,0-6.1,1-8,2.8
     c-1.9,1.9-2.8,4.5-2.8,7.9c0,3.2,0.9,5.8,2.8,7.7c1.9,1.9,4.5,2.8,8,2.8c3.3,0,5.9-0.9,7.8-2.8c1.9-1.9,2.8-4.5,2.8-7.7
     C193.6,64.7,192.7,62,190.8,60.2z M115.4,62.5H94.3L50,181.5h20.4L82,148.6h45.3l11.8,32.9h20.6L115.4,62.5z M87.6,131.9L98.3,101
     c2.8-7.9,4.9-15.2,6.4-21.8c0.6,2.1,1.6,5.6,3,10.2c1.5,4.6,2.6,8,3.4,10.2l11.1,32.3H87.6z M183,78.6c3.3,0,5.9-0.9,7.8-2.8
@@ -46,25 +52,26 @@ const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)
     c-3.5,0-6.1,1-8,2.8c-1.9,1.9-2.8,4.5-2.8,7.9c0,3.2,0.9,5.8,2.8,7.7C176.9,77.7,179.5,78.6,183,78.6z M173.4,181.5h19V91.9h-19
     V181.5z M94.3,62.5L50,181.5h20.4L82,148.6h45.3l11.8,32.9h20.6l-44.3-119H94.3z M87.6,131.9L98.3,101c2.8-7.9,4.9-15.2,6.4-21.8
     c0.6,2.1,1.6,5.6,3,10.2c1.5,4.6,2.6,8,3.4,10.2l11.1,32.3H87.6z" />
-        <path v-else-if="props.app == 'AEFT'" class="host-aeft" d="M114.5,181.8l-11.8-32.9H57.3l-11.6,32.9H25.3l44.3-119h21.1l44.3,119L114.5,181.8L114.5,181.8z
+        <path v-else-if="props.app == 'AEFT'" class="host-aeft" :class="{ disabled: props.disabled }" d="M114.5,181.8l-11.8-32.9H57.3l-11.6,32.9H25.3l44.3-119h21.1l44.3,119L114.5,181.8L114.5,181.8z
 		 M97.5,132.2L86.4,100c-0.8-2.2-1.9-5.6-3.4-10.2c-1.4-4.6-2.4-8.1-3-10.2c-1.5,6.6-3.6,13.9-6.4,21.8L63,132.2H97.5z M187.8,183.5
 		c-13.9,0-24.8-4.1-32.7-12.2c-7.9-8.1-11.8-19.3-11.8-33.6c0-14.6,3.6-26.2,10.9-34.5c7.3-8.4,17.3-12.6,30.1-12.6
 		c11.8,0,21.2,3.6,28,10.8c6.9,7.2,10.3,17.1,10.3,29.7v10.3h-59.7c0.3,8.7,2.6,15.4,7.1,20.1c4.4,4.7,10.7,7,18.7,7
 		c5.3,0,10.2-0.5,14.8-1.5s9.5-2.7,14.7-5v15.5c-4.6,2.2-9.3,3.8-14.1,4.7C199.4,183,193.9,183.5,187.8,183.5z M184.3,105
 		c-6.1,0-10.9,1.9-14.5,5.8c-3.6,3.8-5.8,9.4-6.5,16.8H204c-0.1-7.4-1.9-13-5.3-16.8C195.1,106.9,190.4,105,184.3,105z" />
-        <path v-else-if="props.app == 'PHXS' || props.app == 'PHSP'" class="host-phxs" d="M130.6,99.2c0,12.4-4.1,21.9-12.2,28.5c-8.1,6.6-19.6,9.9-34.6,9.9H71.5v44.3H52.2V63.3h34.1
+        <path v-else-if="props.app == 'PHXS' || props.app == 'PHSP'" class="host-phxs"
+          :class="{ disabled: props.disabled }" d="M130.6,99.2c0,12.4-4.1,21.9-12.2,28.5c-8.1,6.6-19.6,9.9-34.6,9.9H71.5v44.3H52.2V63.3h34.1
 		c14.8,0,25.9,3,33.3,9.1C126.9,78.5,130.6,87.4,130.6,99.2z M71.5,121.2h10.3c9.9,0,17.2-1.7,21.9-5.2c4.6-3.5,7-8.9,7-16.2
 		c0-6.8-2.1-11.9-6.2-15.2c-4.2-3.3-10.6-5-19.5-5H71.5V121.2z M212.5,156.3c0,8.8-3.2,15.5-9.6,20.1c-6.4,4.7-15.5,7-27.4,7
 		s-21.5-1.8-28.8-5.4v-16.5c10.5,4.9,20.3,7.3,29.4,7.3c11.7,0,17.6-3.5,17.6-10.6c0-2.3-0.6-4.2-1.9-5.7c-1.3-1.5-3.4-3.1-6.4-4.7
 		c-3-1.6-7.1-3.5-12.4-5.5c-10.3-4-17.3-8-21-12c-3.6-4-5.5-9.2-5.5-15.6c0-7.7,3.1-13.6,9.3-17.9c6.2-4.2,14.6-6.4,25.2-6.4
 		c10.5,0,20.5,2.1,29.9,6.4l-6.2,14.3c-9.7-4-17.8-6-24.4-6c-10.1,0-15.1,2.9-15.1,8.6c0,2.8,1.3,5.2,3.9,7.1
 		c2.6,1.9,8.3,4.6,17.1,8c7.4,2.9,12.8,5.5,16.1,7.9s5.8,5.1,7.5,8.2C211.7,148.3,212.5,152,212.5,156.3z" />
-        <path v-else-if="props.app == 'PPRO'" class="host-ppro" d="M135.3,99.2c0,12.4-4.1,21.9-12.2,28.5c-8.1,6.6-19.6,9.9-34.6,9.9H76.2v44.3H56.8V63.3h34.1
+        <path v-else-if="props.app == 'PPRO'" class="host-ppro" :class="{ disabled: props.disabled }" d="M135.3,99.2c0,12.4-4.1,21.9-12.2,28.5c-8.1,6.6-19.6,9.9-34.6,9.9H76.2v44.3H56.8V63.3h34.1
 		c14.8,0,25.9,3,33.3,9.1C131.6,78.5,135.3,87.4,135.3,99.2z M76.2,121.2h10.3c9.9,0,17.2-1.7,21.9-5.2c4.6-3.5,7-8.9,7-16.2
 		c0-6.8-2.1-11.9-6.2-15.2c-4.2-3.3-10.6-5-19.5-5H76.2V121.2z M202.4,90.6c3.8,0,7,0.3,9.5,0.8l-1.9,17.8c-2.7-0.6-5.5-1-8.4-1
 		c-7.6,0-13.8,2.5-18.5,7.5c-4.7,5-7.1,11.4-7.1,19.4v46.8h-19V92.2h14.9l2.5,15.8h1c3-5.3,6.8-9.6,11.6-12.7
 		C191.7,92.1,196.9,90.6,202.4,90.6z" />
-        <path v-else-if="props.app == 'IDSN'" class="host-idsn" d="M66.6,181.8V63.3H86v118.5H66.6z M145.5,183.5c-11.2,0-19.9-4.1-26.2-12.2
+        <path v-else-if="props.app == 'IDSN'" class="host-idsn" :class="{ disabled: props.disabled }" d="M66.6,181.8V63.3H86v118.5H66.6z M145.5,183.5c-11.2,0-19.9-4.1-26.2-12.2
 		c-6.3-8.1-9.4-19.5-9.4-34.1c0-14.7,3.2-26.1,9.5-34.3c6.3-8.2,15.1-12.3,26.4-12.3c11.8,0,20.8,4.4,26.9,13h1
 		c-0.9-6.4-1.4-11.5-1.4-15.2V55.7h19.1v126.1h-14.9l-3.3-11.8h-0.9C166.2,179,157.2,183.5,145.5,183.5z M150.6,168.1
 		c7.8,0,13.5-2.2,17.1-6.6s5.4-11.6,5.5-21.4v-2.7c0-11.3-1.8-19.3-5.5-24.1c-3.7-4.8-9.4-7.1-17.3-7.1c-6.7,0-11.9,2.7-15.5,8.1
@@ -86,6 +93,7 @@ const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)
   --ppro-stroke: #9999FF;
   --idsn-fill: #49021F;
   --idsn-stroke: #FF3366;
+  --host-disabled: #cacaca;
   max-width: 50px;
   max-height: 50px;
   width: 100%;
@@ -109,5 +117,9 @@ const fillColor = computed((): string => `var(--${props.app.toLowerCase()}-fill)
 
 .host-ppro {
   fill: var(--ppro-stroke)
+}
+
+[class^="host"].disabled {
+  fill: white;
 }
 </style>

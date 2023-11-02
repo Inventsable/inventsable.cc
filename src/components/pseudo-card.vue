@@ -2,41 +2,15 @@
 import { getExtensionPackage, getExtensionConfig } from '../util/github'
 import hostIcon from './adobe-icons/host-icon.vue';
 import iconButton from './icon-button.vue';
-import { useSlots, computed } from 'vue';
-
+import { useSlots } from 'vue';
+import type { HostList, PseudoPackage, Config } from '@/types'
 useSlots();
-const props = defineProps({
-  repo: {
-    type: String,
-    required: true
-  },
-  disabled: {
-    type: Boolean,
-  },
-  label: {
-    type: String,
-  },
-  disabledHosts: {
-    type: Array,
-    required: false
-  }
-})
-const pkg = await getExtensionPackage(props.repo);
-console.log(pkg);
-const config = await getExtensionConfig(props.repo);
-console.log(config)
-interface hostList {
-  name: string;
-  version: string | number;
-  disabled?: boolean;
-}
 
-const hostList = computed((): hostList[] => {
-  // @ts-ignore
-  return [].concat(config.hosts, props.disabledHosts)
-})
-
-console.log(hostList.value)
+const props = defineProps<{
+  label: string,
+  package: PseudoPackage,
+  config: Config
+}>()
 
 </script>
 
@@ -47,7 +21,6 @@ console.log(hostList.value)
       <div class="card-label" :style="{
         backgroundColor: `#${props.label?.replace(/^\#/, '')}`
       }">
-
       </div>
       <div class="card-image-container">
         <div class="card-image-text">
@@ -60,7 +33,7 @@ console.log(hostList.value)
     </div>
     <div class="card-content">
       <div class="card-hosts">
-        <div v-for="(host, index) in hostList" :key="index" class="host-icon">
+        <div v-for="(host, index) in config.hosts" :key="index" class="host-icon">
           <hostIcon :app="host.name" :legacy="false" :disabled="host.disabled" />
         </div>
       </div>
@@ -72,31 +45,43 @@ console.log(hostList.value)
             </div>
             <div class="tool-title">
               <div class="tool-namespace">
-                {{ pkg.name }}
+                {{ props.package.name }}
               </div>
               <div class="tool-version">
-                {{ `v${pkg.version}` }}
+                {{ `v${props.package.version}` }}
               </div>
             </div>
           </div>
           <div class="card-subheader-bottom">
-            {{ pkg.description }}
+            {{ props.package.description }}
           </div>
         </div>
         <div class="card-actions">
-          <div class="action-btn">
-            DOWNLOAD
+          <div class="action-btn-disabled">
+            IN DEVELOPMENT
           </div>
         </div>
       </div>
       <div class="card-sidebar">
-        <iconButton />
+        <div class="sidebar-btn">
+          <span class="material-symbols-outlined">
+            lock
+          </span>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style>
+.sidebar-btn {
+  width: 48px;
+  height: 52px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .card-container {
   user-select: none;
   overflow: hidden;
@@ -267,11 +252,11 @@ console.log(hostList.value)
   align-items: center;
 }
 
-.action-btn {
+.action-btn-disabled {
   user-select: none;
-  cursor: pointer;
+  cursor: auto;
   padding: 5px 16px;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: #cacaca;
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.3ch;
