@@ -40,11 +40,15 @@ const props = defineProps<{
       <div class="card-main">
         <div class="card-subheader">
           <div class="card-subheader-top">
-            <div class="tool-icon">
+            <div class="tool-icon" :style="{
+              backgroundColor: props.label
+            }">
               <slot name="logo" />
             </div>
             <div class="tool-title">
-              <div class="tool-namespace">
+              <div class="tool-namespace" :style="{
+                textDecorationColor: props.label
+              }">
                 {{ props.package.name }}
               </div>
               <div class="tool-version">

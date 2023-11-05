@@ -67,11 +67,15 @@ console.log(hostList.value)
       <div class="card-main">
         <div class="card-subheader">
           <div class="card-subheader-top">
-            <div class="tool-icon">
+            <div class="tool-icon" :style="{
+              // backgroundColor: props.label
+            }">
               <slot name="logo" />
             </div>
             <div class="tool-title">
-              <div class="tool-namespace">
+              <div class="tool-namespace" :style="{
+                textDecorationColor: props.label
+              }">
                 {{ pkg.name }}
               </div>
               <div class="tool-version">
@@ -107,6 +111,7 @@ console.log(hostList.value)
   justify-content: center;
   align-items: center;
   background-color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
 .card-container:nth-child(n+2) {
@@ -228,7 +233,7 @@ console.log(hostList.value)
   /* box-sizing: border-box; */
   width: 32px;
   height: 32px;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.0) !important;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -242,6 +247,7 @@ console.log(hostList.value)
 }
 
 .tool-namespace {
+  text-decoration: underline;
   box-sizing: border-box;
   margin: 0px 10px;
   font-size: 24px;
@@ -268,6 +274,7 @@ console.log(hostList.value)
 }
 
 .action-btn {
+  border-radius: 2px;
   user-select: none;
   cursor: pointer;
   padding: 5px 16px;
@@ -275,7 +282,16 @@ console.log(hostList.value)
   color: #fff;
   font-weight: 700;
   letter-spacing: 0.3ch;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  transform: translateY(0px);
+  transition: box-shadow 0ms cubic-bezier(0.48, 0.04, 0.52, 0.96) 80ms, transform 0ms cubic-bezier(0.48, 0.04, 0.52, 0.96) 80ms
 }
+
+.action-btn:active {
+  transform: translateY(1px);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
 
 .card-sidebar {
   box-sizing: border-box;

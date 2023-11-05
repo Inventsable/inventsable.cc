@@ -3,7 +3,7 @@
     "package": {
       "name": "warlock",
       "version": "0.0.1",
-      "description": "Lorem Ipsum",
+      "description": "Color collection, selection, and history made easy",
       "homepage": "https://google.com"
     },
     "config": {
@@ -22,14 +22,14 @@
         }
       ]
     },
-    "label": "#ff0000",
-    "icon": "highlight"
+    "label": "#fb5607",
+    "icon": "hourglass_top"
   },
   {
     "package": {
       "name": "snatch",
       "version": "2.0.1",
-      "description": "Lorem Ipsum",
+      "description": "Inject Youtube, Twitch and other videos directly into Adobe",
       "homepage": "https://google.com"
     },
     "config": {
@@ -44,14 +44,14 @@
         }
       ]
     },
-    "label": "#ff0000",
-    "icon": "system_update_alt"
+    "label": "#ff006e",
+    "icon": "hourglass_top"
   },
   {
     "package": {
       "name": "keylo",
       "version": "0.0.1",
-      "description": "Lorem Ipsum",
+      "description": "The realtime tutorial-making platform",
       "homepage": "https://google.com"
     },
     "config": {
@@ -78,7 +78,7 @@
         }
       ]
     },
-    "label": "#ff0000",
-    "icon": "keyboard_alt"
+    "label": "#8338ec",
+    "icon": "hourglass_top"
   }
 ]

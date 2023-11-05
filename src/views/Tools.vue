@@ -5,12 +5,16 @@ import type { PseudoPackage, HostList, Config } from '@/types';
 import pseudoCard from '@/components/pseudo-card.vue';
 // @ts-ignore - Typescript keeps flagging files made outside default folders
 import toolList from '@/upcoming.json'
+import skeletonCard from '@/components/skeleton-card.vue';
 </script>
 
 <template>
   <div class="main">
     <Suspense>
-      <card repo="checkpoint" label="#21db56" :disabledHosts="[{ name: 'AEFT', disabled: true }]">
+      <template #fallback>
+        <skeletonCard />
+      </template>
+      <card repo="checkpoint" label="#ffbe0b" :disabledHosts="[{ name: 'AEFT', disabled: true }]">
         <template v-slot:logo>
           <iconCheckpoint />
         </template>
