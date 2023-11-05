@@ -87,7 +87,6 @@ const shuffleColors = () => {
 
 onMounted(async () => {
   anim.value = buildAnimation();
-  console.log(props.data)
   animAPI.value = (lottie_api as LottieApi).createAnimationApi(anim.value);
   anim.value.addEventListener('loopComplete', () => {
     if (!firstLoop.value) firstLoop.value = true;
@@ -104,7 +103,6 @@ onMounted(async () => {
   })
   watch(() => props.hover, (value) => {
     hover.value = value;
-    console.log(anim.value.currentRawFrame)
     if (!value) {
       lastMarker = findNearestStopPoint(anim.value.currentRawFrame)
     } else {
@@ -186,6 +184,14 @@ const isMonochrome = computed(() => {
   -ms-transition: 180ms -ms-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
   -o-transition: 180ms -o-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
   transition: 180ms filter cubic-bezier(0.76, 0.00, 0.24, 1.00), 180ms -webkit-filter cubic-bezier(0.76, 0.00, 0.24, 1.00), background-color 180ms cubic-bezier(0.76, 0.00, 0.24, 1.00);
+}
+
+.cursor {
+  filter: drop-shadow(0.45rem 0.45rem 0.5rem rgba(0, 0, 0, 0.5));
+}
+
+.panel-full {
+  filter: drop-shadow(0.35rem 0.35rem 0.4rem rgba(0, 0, 0, 0.5));
 }
 
 .cursor-stroke {
