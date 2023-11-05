@@ -112,6 +112,10 @@ console.log(hostList.value)
   box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
 
+.card-container:last-of-type {
+  margin-bottom: 40px;
+}
+
 .card-container:nth-child(n+2) {
   margin-top: 32px;
 }
@@ -141,7 +145,8 @@ console.log(hostList.value)
   order: 1;
 }
 
-.card-container:nth-child(even) .card-preview {
+.card-container:nth-child(even) .card-preview,
+.card-container:nth-child(even) .lottie-container {
   order: 1;
 }
 

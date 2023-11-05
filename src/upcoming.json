@@ -80,5 +80,39 @@
     },
     "label": "#8338ec",
     "icon": "hourglass_top"
+  },
+  {
+    "package": {
+      "name": "bombei",
+      "version": "0.0.1",
+      "description": "Ultimate scripting platform",
+      "homepage": "https://google.com"
+    },
+    "config": {
+      "hosts": [
+        {
+          "name": "ILST",
+          "disabled": true
+        },
+        {
+          "name": "PHXS",
+          "disabled": true
+        },
+        {
+          "name": "AEFT",
+          "disabled": true
+        },
+        {
+          "name": "PPRO",
+          "disabled": true
+        },
+        {
+          "name": "IDSN",
+          "disabled": true
+        }
+      ]
+    },
+    "label": "#8338ec",
+    "icon": "hourglass_top"
   }
 ]

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @ts-nocheck
 import card from '@/components/card.vue';
 import iconCheckpoint from '@/components/checkpoint/icon-header.vue'
 import type { PseudoPackage, HostList, Config } from '@/types';
@@ -11,8 +12,17 @@ import skeletonCard from '@/components/skeleton-card.vue';
 import lottiePreviewVue from '@/components/lottie-preview.vue';
 import { ref } from 'vue';
 
-const checkpointLoop = ref(true);
 const checkpointHover = ref(false);
+const warlockHover = ref(false);
+const snatchHover = ref(false);
+const keyloHover = ref(false);
+
+import warlockAnimation from '@/assets/previews/warlock.json'
+import snatchAnimation from '@/assets/previews/snatch.json'
+const animations = {
+  snatch: snatchAnimation,
+  warlock: warlockAnimation
+}
 </script>
 
 <template>
@@ -38,6 +48,10 @@ const checkpointHover = ref(false);
             {{ tool.icon }}
           </span>
         </template>
+        <template v-slot:animation v-if="animations[tool.package.name as string]">
+          <lottiePreviewVue :name="tool.package.name" :data="animations[tool.package.name as string]"
+            :hover="checkpointHover" :disabled="true" />
+        </template>
       </pseudoCard>
     </Suspense>
   </div>
@@ -46,8 +60,9 @@ const checkpointHover = ref(false);
 <style>
 .main {
   padding-top: 40px;
-  min-height: 100%;
   max-width: 800px;
+  height: fit-content;
   width: 100%;
+  margin-bottom: 80px;
 }
 </style>

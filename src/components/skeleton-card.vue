@@ -1,5 +1,5 @@
 <script setup lang="ts">
-console.log("HELLO?")
+// This should really be embedded into card instead of being a standalone component
 </script>
 
 <template>

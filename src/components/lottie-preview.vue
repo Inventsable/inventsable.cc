@@ -41,6 +41,7 @@ interface Props {
   name: string;
   shouldLoop?: boolean;
   hover?: boolean;
+  disabled?: boolean;
 }
 
 function getRandomInt(min, max) {
@@ -72,7 +73,8 @@ function getRandomBrightColor(min: number = 40, max: number = 80): string {
 const props = withDefaults(defineProps<Props>(), {
   data: null,
   shouldLoop: true,
-  hover: false
+  hover: false,
+  disabled: false,
 })
 
 // Neat idea but generated colors don't have enough contrast and look ugly
@@ -138,6 +140,7 @@ function hexToGrayscale(hex: string): string {
 }
 
 const isMonochrome = computed(() => {
+  if (props.disabled) return true;
   if (hover.value) return false;
   if (!firstLoop.value) return false;
   return true;
@@ -175,15 +178,17 @@ const isMonochrome = computed(() => {
   --quint: cubic-bezier(0.84, 0.00, 0.16, 1.00);
 }
 
+
+
 .mono {
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
-  -webkit-transition: 180ms -webkit-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
-  -moz-transition: 180ms -moz-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
-  -moz-transition: 180ms filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
-  -ms-transition: 180ms -ms-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
-  -o-transition: 180ms -o-filter cubic-bezier(0.76, 0.00, 0.24, 1.00);
-  transition: 180ms filter cubic-bezier(0.76, 0.00, 0.24, 1.00), 180ms -webkit-filter cubic-bezier(0.76, 0.00, 0.24, 1.00), background-color 180ms cubic-bezier(0.76, 0.00, 0.24, 1.00);
+  -webkit-transition: 300ms -webkit-filter var(--quart);
+  -moz-transition: 300ms -moz-filter var(--quart);
+  -moz-transition: 300ms filter var(--quart);
+  -ms-transition: 300ms -ms-filter var(--quart);
+  -o-transition: 300ms -o-filter var(--quart);
+  transition: 300ms filter var(--quart), 300ms -webkit-filter var(--quart), background-color 180ms var(--quart);
 }
 
 .cursor {
@@ -220,15 +225,15 @@ const isMonochrome = computed(() => {
 }
 
 .cp-bg-1 {
-  fill: var(--cp-bg-1);
+  fill: #565ecb;
 }
 
 .cp-bg-2 {
-  fill: var(--cp-bg-2);
+  fill: #8d56cb;
 }
 
 .cp-bg-3 {
-  fill: var(--cp-bg-3);
+  fill: #cb5656;
 }
 
 .lottie-container {
@@ -246,5 +251,13 @@ const isMonochrome = computed(() => {
   width: 103%;
   height: 100%;
   min-height: 210px;
+}
+
+.wl-bg-1 {
+  fill: #cb5856;
+}
+
+.sn-bg-1 {
+  fill: #9c56cb;
 }
 </style>

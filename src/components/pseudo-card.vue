@@ -17,7 +17,8 @@ const props = defineProps<{
 <!-- <slot name="icon"></slot> -->
 <template>
   <div class="card-container">
-    <div class="card-preview">
+    <slot name="animation" v-if="$slots.animation" />
+    <div class="card-preview" v-else>
       <div class="card-label" :style="{
         backgroundColor: `#${props.label?.replace(/^\#/, '')}`
       }">
