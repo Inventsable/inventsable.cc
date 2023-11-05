@@ -13,8 +13,6 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
 
-console.log(props.app, props.disabled)
-
 const strokeType = computed((): string => {
   if (props.disabled) return 'fill'
   else return props.legacy ? 'stroke' : 'fill'

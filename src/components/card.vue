@@ -43,18 +43,16 @@ console.log(hostList.value)
 <!-- <slot name="icon"></slot> -->
 <template>
   <div class="card-container">
-    <div class="card-preview">
+    <slot name="animation" v-if="$slots.animation" />
+    <div class="card-preview" v-else>
       <div class="card-label" :style="{
         backgroundColor: `#${props.label?.replace(/^\#/, '')}`
       }">
 
       </div>
       <div class="card-image-container">
-        <div class="card-image-text">
+        <div class="card-image-text" v-if="!$slots.animation">
           GIF
-        </div>
-        <div class="card-image-background">
-
         </div>
       </div>
     </div>
@@ -158,6 +156,7 @@ console.log(hostList.value)
 .card-image-container {
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .card-image-text {
