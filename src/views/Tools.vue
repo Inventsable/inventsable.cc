@@ -42,7 +42,7 @@ const isMobileScreen = computed(() => {
   return window.innerWidth <= 870
 })
 const toggleHover = (property: Ref<boolean>, value: boolean): void => {
-  if (isMobileScreen) property.value = true
+  if (isMobileScreen.value) property.value = true
   else property.value = value;
 }
 
@@ -57,7 +57,7 @@ toggleHover(tools.checkpoint.hover, false)
         <skeletonCard />
       </template>
       <card repo="checkpoint" label="#ffbe0b" :disabledHosts="[{ name: 'AEFT', disabled: true }]"
-        @mouseenter="toggleHover(tools.checkpoint.hover, true)" @mouseleave="toggleHover(tools.checkpoint.hover, true)">
+        @mouseenter="toggleHover(tools.checkpoint.hover, true)" @mouseleave="toggleHover(tools.checkpoint.hover, false)">
         <template v-slot:logo>
           <iconCheckpoint />
         </template>
