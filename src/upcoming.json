@@ -3,7 +3,7 @@
     "package": {
       "name": "warlock",
       "version": "0.0.1",
-      "description": "Color collection, selection, and history made easy",
+      "description": "Color selection and history made easy",
       "homepage": "https://google.com"
     },
     "config": {
@@ -29,7 +29,7 @@
     "package": {
       "name": "snatch",
       "version": "2.0.1",
-      "description": "Inject Youtube, Twitch and other videos directly into Adobe",
+      "description": "Inject Youtube, Twitch and other videos into Adobe",
       "homepage": "https://google.com"
     },
     "config": {
@@ -85,7 +85,7 @@
     "package": {
       "name": "bombei",
       "version": "0.0.1",
-      "description": "Ultimate scripting platform",
+      "description": "The ultimate scripting platform",
       "homepage": "https://google.com"
     },
     "config": {
