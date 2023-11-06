@@ -14,6 +14,10 @@ const router = createRouter({
       name: "tools",
       component: () => import("../views/Tools.vue"),
     },
+    {
+      path: "/:catchAll(.*)*",
+      component: () => import("../views/Tools.vue"),
+    },
   ],
 });
 
