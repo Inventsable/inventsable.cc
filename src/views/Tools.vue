@@ -102,7 +102,7 @@ toggleHover(tools.checkpoint.hover, false)
 }
 
 /* General horizontal */
-@media (max-width: 870px) {
+@media only screen and (max-width: 870px) {
   #app {
     width: 100vw;
     overflow-x: hidden;

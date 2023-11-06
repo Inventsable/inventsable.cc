@@ -308,9 +308,12 @@ const props = defineProps<{
     display: flex;
   }
 
-  .pseudo-card-container {
+  .pseudo-card-container,
+  .pseudo-card-container:nth-child(even) {
     border-radius: 0px 0px 0px 0px;
   }
+
+
 
   .pseudo-card-content {
     flex-direction: column;
@@ -400,6 +403,10 @@ const props = defineProps<{
 
   .action-btn-disabled:not(.sm) {
     display: flex;
+  }
+
+  .pseudo-card-hosts {
+    margin-top: 12px;
   }
 }
 </style>
