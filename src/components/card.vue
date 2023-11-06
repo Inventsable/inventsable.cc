@@ -148,16 +148,17 @@ console.log(hostList.value)
   order: 1;
 }
 
+
 .card-container:nth-child(even) .card-preview,
-.card-container:nth-child(even) .lottie-container {
+[class$="card-container"]:nth-child(even) .lottie-container {
   order: 1;
 }
 
-.card-container:nth-child(even) .card-sidebar {
+[class$="card-container"]:nth-child(even) .card-sidebar {
   order: -2;
 }
 
-.card-container:nth-child(even) .card-hosts {
+[class$="card-container"]:nth-child(even) .card-hosts {
   order: 2;
 }
 
@@ -403,6 +404,14 @@ console.log(hostList.value)
 
   .tool-icon {
     margin-bottom: 8px;
+  }
+
+  [class$="card-container"]:nth-child(even) .lottie-container {
+    order: 0;
+  }
+
+  [class$="card-container"]:last-of-type {
+    margin-bottom: 80px;
   }
 }
 </style>

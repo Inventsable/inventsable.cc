@@ -290,6 +290,10 @@ const props = defineProps<{
   align-items: center;
 }
 
+.pseudo-card-small-sidebar {
+  display: none;
+}
+
 /* General horizontal */
 @media only screen and (max-width: 870px) {
   .action-btn-disabled:not(.sm) {

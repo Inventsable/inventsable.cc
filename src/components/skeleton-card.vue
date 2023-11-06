@@ -265,4 +265,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+@media only screen and (max-width: 870px) {}
+
+@media only screen and (max-width: 540px) {}
 </style>

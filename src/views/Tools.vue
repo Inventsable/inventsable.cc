@@ -46,13 +46,17 @@ const toggleHover = (property: Ref<boolean>, value: boolean): void => {
   else property.value = value;
 }
 
+// Just a cursory check to determine if the user has loaded in a mobile device
 toggleHover(tools.checkpoint.hover, false)
+// This only occurs once which is far less taxing than measuring screen size events
 
 </script>
 
 <template>
   <div class="main">
     <Suspense>
+      <!-- Since most content is being fetched from Github, we want to Suspend the main component and
+      provide a fallback to skeleton content to prevent abrupt changes to content sizes on page load -->
       <template #fallback>
         <skeletonCard />
       </template>
@@ -66,6 +70,7 @@ toggleHover(tools.checkpoint.hover, false)
         </template>
       </card>
     </Suspense>
+    <!-- For any tools which aren't currently available, we use mock data and a modified Card component -->
     <Suspense v-for="(tool, index) in toolList" :key="index">
       <pseudoCard :package="tool.package" :config="tool.config" :label="tool.label">
         <template v-slot:logo>
