@@ -1,4 +1,10 @@
 <script setup lang="ts">
+/**
+ * This should be compartmentalized. It'd be nice to refactor this
+ * to bundle card, pseudo-card, and skeleton in the same parent,
+ * then pieces like HostList into children components.
+ */
+
 import { getExtensionPackage, getExtensionConfig } from '../util/github'
 import hostIcon from './adobe-icons/host-icon.vue';
 import iconButton from './icon-button.vue';
@@ -22,8 +28,8 @@ const props = defineProps({
   }
 })
 const pkg = await getExtensionPackage(props.repo);
-console.log(pkg);
 const config = await getExtensionConfig(props.repo);
+console.log(pkg);
 console.log(config)
 interface hostList {
   name: string;
