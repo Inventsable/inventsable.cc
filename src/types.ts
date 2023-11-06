@@ -1,7 +1,22 @@
+import type { Ref } from "vue";
+
 export interface HostList {
   name: string;
   version?: string | number;
   disabled?: boolean;
+}
+
+export interface Tool {
+  hover: Ref<boolean>;
+  animation: any;
+}
+
+export interface Tools {
+  checkpoint: Tool;
+  snatch: Tool;
+  warlock: Tool;
+  keylo: Tool;
+  bombei: Tool;
 }
 
 export interface PseudoPackage {

@@ -16,58 +16,66 @@ const props = defineProps<{
 
 <!-- <slot name="icon"></slot> -->
 <template>
-  <div class="card-container">
+  <div class="pseudo-card-container">
     <slot name="animation" v-if="$slots.animation" />
-    <div class="card-preview" v-else>
-      <div class="card-label" :style="{
+    <div class="pseudo-card-preview" v-else>
+      <div class="pseudo-card-label" :style="{
         backgroundColor: `#${props.label?.replace(/^\#/, '')}`
       }">
       </div>
-      <div class="card-image-container">
-        <div class="card-image-text">
+      <div class="pseudo-card-image-container">
+        <div class="pseudo-card-image-text">
           GIF
         </div>
-        <div class="card-image-background">
+        <div class="pseudo-card-image-background">
 
         </div>
       </div>
     </div>
-    <div class="card-content">
-      <div class="card-hosts">
-        <div v-for="(host, index) in config.hosts" :key="index" class="host-icon">
+    <div class="pseudo-card-content">
+      <div class="pseudo-card-hosts">
+        <div v-for="(host, index) in config.hosts" :key="index" class="pseudo-host-icon">
           <hostIcon :app="host.name" :legacy="false" :disabled="host.disabled" />
         </div>
+        <div class="pseudo-card-small-sidebar">
+          <div class="sidebar-btn">
+            <span class="material-symbols-outlined">
+              lock
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="card-main">
-        <div class="card-subheader">
-          <div class="card-subheader-top">
-            <div class="tool-icon" :style="{
-              backgroundColor: props.label
-            }">
+      <div class="pseudo-card-main">
+        <div class="pseudo-card-subheader">
+          <div class="pseudo-card-subheader-top">
+            <div class="pseudo-tool-icon" :style="{}">
               <slot name="logo" />
             </div>
-            <div class="tool-title">
-              <div class="tool-namespace" :style="{
+            <div class="pseudo-tool-title">
+              <div class="pseudo-tool-namespace" :style="{
                 textDecorationColor: props.label
               }">
                 {{ props.package.name }}
               </div>
-              <div class="tool-version">
+              <div class="pseudo-tool-version">
                 {{ `v${props.package.version}` }}
               </div>
             </div>
           </div>
-          <div class="card-subheader-bottom">
+          <div class="pseudo-card-subheader-bottom">
             {{ props.package.description }}
           </div>
         </div>
-        <div class="card-actions">
+        <div class="pseudo-card-actions">
           <div class="action-btn-disabled">
             IN DEVELOPMENT
           </div>
+          <div class="action-btn-disabled sm">
+            WIP
+          </div>
         </div>
       </div>
-      <div class="card-sidebar">
+      <div class="pseudo-card-sidebar">
         <div class="sidebar-btn">
           <span class="material-symbols-outlined">
             lock
@@ -79,6 +87,10 @@ const props = defineProps<{
 </template>
 
 <style>
+.action-btn-disabled.sm {
+  display: none;
+}
+
 .sidebar-btn {
   width: 48px;
   height: 52px;
@@ -87,7 +99,7 @@ const props = defineProps<{
   align-items: center;
 }
 
-.card-container {
+.pseudo-card-container {
   user-select: none;
   overflow: hidden;
   border-radius: 5px 0px 0px 5px;
@@ -99,16 +111,16 @@ const props = defineProps<{
   background-color: #fff;
 }
 
-.card-container:nth-child(n+2) {
+.pseudo-card-container:nth-child(n+2) {
   margin-top: 32px;
 }
 
-.card-label {
+.pseudo-card-label {
   width: 8px;
   height: 100%;
 }
 
-.card-preview {
+.pseudo-card-preview {
   box-sizing: border-box;
   /* border: 2px solid blue; */
   width: 420px;
@@ -120,32 +132,32 @@ const props = defineProps<{
   align-items: center;
 }
 
-.card-container:nth-child(even) {
+.pseudo-card-container:nth-child(even) {
   border-radius: 0px 5px 5px 0px;
 }
 
-.card-container:nth-child(even) .card-preview .card-label {
+.pseudo-card-container:nth-child(even) .pseudo-card-preview .pseudo-card-label {
   order: 1;
 }
 
-.card-container:nth-child(even) .card-preview {
+.pseudo-card-container:nth-child(even) .pseudo-card-preview {
   order: 1;
 }
 
-.card-container:nth-child(even) .card-sidebar {
+.pseudo-card-container:nth-child(even) .pseudo-card-sidebar {
   order: -2;
 }
 
-.card-container:nth-child(even) .card-hosts {
+.pseudo-card-container:nth-child(even) .pseudo-card-hosts {
   order: 2;
 }
 
-.card-image-container {
+.pseudo-card-image-container {
   width: 100%;
   height: 100%;
 }
 
-.card-image-text {
+.pseudo-card-image-text {
   background-color: rgba(0, 0, 0, 0.8);
   width: 100%;
   height: 100%;
@@ -158,7 +170,7 @@ const props = defineProps<{
   font-weight: 700;
 }
 
-.card-content {
+.pseudo-card-content {
   box-sizing: border-box;
   width: 100%;
   /* border: 2px solid green; */
@@ -169,7 +181,7 @@ const props = defineProps<{
   flex-wrap: nowrap;
 }
 
-.card-hosts {
+.pseudo-card-hosts {
   box-sizing: border-box;
   width: 66px;
   height: 100%;
@@ -181,25 +193,25 @@ const props = defineProps<{
   padding: 14px 0px;
 }
 
-.host-icon {
+.pseudo-host-icon {
   box-sizing: border-box;
   width: 28px;
   height: 28px;
   /* background-color: #000; */
 }
 
-.host-icon:nth-child(n+1):not(:first-of-type) {
+.pseudo-host-icon:nth-child(n+1):not(:first-of-type) {
   margin-top: 6px;
 }
 
-.card-main {
+.pseudo-card-main {
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: 1fr 1fr;
 }
 
-.card-subheader {
+.pseudo-card-subheader {
   display: flex;
   flex-direction: wrap;
   justify-content: center;
@@ -207,14 +219,14 @@ const props = defineProps<{
   flex-direction: column;
 }
 
-.card-subheader-top {
+.pseudo-card-subheader-top {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: end;
 }
 
-.tool-icon {
+.pseudo-tool-icon {
   /* box-sizing: border-box; */
   width: 32px;
   height: 32px;
@@ -224,14 +236,14 @@ const props = defineProps<{
   align-items: center;
 }
 
-.tool-title {
+.pseudo-tool-title {
   display: flex;
   justify-content: center;
   align-items: baseline;
   flex-wrap: nowrap;
 }
 
-.tool-namespace {
+.pseudo-tool-namespace {
   box-sizing: border-box;
   margin: 0px 10px;
   font-size: 24px;
@@ -239,19 +251,19 @@ const props = defineProps<{
   letter-spacing: 0.1ch;
 }
 
-.tool-version {
+.pseudo-tool-version {
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.2ch;
 }
 
-.card-subheader-bottom {
+.pseudo-card-subheader-bottom {
   padding-top: 6px;
   font-size: 11px;
   font-weight: 600;
 }
 
-.card-actions {
+.pseudo-card-actions {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -267,7 +279,7 @@ const props = defineProps<{
   letter-spacing: 0.3ch;
 }
 
-.card-sidebar {
+.pseudo-card-sidebar {
   box-sizing: border-box;
   width: 60px;
   padding: 0px 0px;
@@ -276,5 +288,88 @@ const props = defineProps<{
   justify-content: start;
   flex-direction: column;
   align-items: center;
+}
+
+/* General horizontal */
+@media only screen and (max-width: 870px) {
+  .action-btn-disabled:not(.sm) {
+    display: none;
+  }
+
+  .pseudo-tool-icon {
+    display: none;
+  }
+
+  .action-btn-disabled.sm {
+    display: flex;
+  }
+
+  .pseudo-card-container {
+    border-radius: 0px 0px 0px 0px;
+  }
+
+
+
+  .pseudo-card-content {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+  }
+
+  .pseudo-card-subheader-bottom {
+    padding: 0px 10px;
+  }
+
+  .pseudo-card-subheader-top {
+    margin: 10px 0px;
+  }
+
+  .pseudo-card-actions {
+    box-sizing: border-box;
+    padding-top: 12px;
+    height: fit-content;
+  }
+
+  .pseudo-card-main {
+    height: 136px;
+    align-items: space-between;
+  }
+
+  .pseudo-card-hosts {
+    padding-top: 0px;
+    box-sizing: border-box;
+    order: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: fit-content;
+  }
+
+  .pseudo-tool-title {
+    flex-direction: column;
+  }
+
+  .pseudo-card-sidebar {
+    display: none;
+  }
+
+  .pseudo-card-small-sidebar {
+    display: flex;
+    width: 32px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+
+  .sidebar-btn {
+    width: 32px;
+  }
+
+  .pseudo-host-icon:nth-child(n+1):not(:first-of-type) {
+    margin-top: 0px;
+    margin-left: 6px;
+  }
 }
 </style>

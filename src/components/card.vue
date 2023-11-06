@@ -61,6 +61,9 @@ console.log(hostList.value)
         <div v-for="(host, index) in hostList" :key="index" class="host-icon">
           <hostIcon :app="host.name" :legacy="false" :disabled="host.disabled" />
         </div>
+        <div class="card-small-sidebar">
+          <iconButton />
+        </div>
       </div>
       <div class="card-main">
         <div class="card-subheader">
@@ -211,6 +214,10 @@ console.log(hostList.value)
   margin-top: 6px;
 }
 
+.card-small-sidebar {
+  display: none;
+}
+
 .card-main {
   width: 100%;
   height: 100%;
@@ -306,5 +313,83 @@ console.log(hostList.value)
   justify-content: start;
   flex-direction: column;
   align-items: center;
+}
+
+
+/* General horizontal */
+@media only screen and (max-width: 870px) {
+  .card-container {
+    border-radius: 0px 0px 0px 0px;
+    width: 100%;
+  }
+
+  .card-content {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: space-between;
+  }
+
+  .card-subheader-bottom {
+    padding: 0px 10px;
+  }
+
+  .card-subheader-top {
+    margin: 10px 0px;
+  }
+
+  .card-actions {
+    box-sizing: border-box;
+    padding-top: 12px;
+    height: fit-content;
+  }
+
+  .card-main {
+    height: 136px;
+    align-items: space-between;
+  }
+
+  .card-hosts {
+    padding-top: 0px;
+    box-sizing: border-box;
+    order: 1;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    height: fit-content;
+  }
+
+  .tool-title {
+    flex-direction: column;
+  }
+
+  .card-sidebar {
+    display: none;
+  }
+
+  .card-small-sidebar {
+    display: flex;
+    width: 50px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+  }
+
+  .host-icon:nth-child(n+1):not(:first-of-type) {
+    margin-top: 0px;
+    margin-left: 6px;
+  }
+
+  .lottie-container {
+    min-width: 278px;
+  }
+}
+
+/* General vertical */
+@media only screen and (max-width: 540px) {
+  .main {
+    border: 2px solid blue;
+  }
 }
 </style>

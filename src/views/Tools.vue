@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import card from '@/components/card.vue';
 import iconCheckpoint from '@/components/checkpoint/icon-header.vue'
-import type { PseudoPackage, HostList, Config } from '@/types';
+import type { Tools, Tool } from '@/types';
 import pseudoCard from '@/components/pseudo-card.vue';
 import checkpointAnimation from '@/assets/previews/checkpoint.json'
 import toolList from '@/upcoming.json'
@@ -35,7 +35,7 @@ const tools = {
     hover: ref(false),
     animation: bombeiAnimation
   }
-}
+} as Tools
 
 </script>
 
@@ -62,9 +62,9 @@ const tools = {
             {{ tool.icon }}
           </span>
         </template>
-        <template v-slot:animation v-if="tools[tool.package.name as string].animation">
-          <lottiePreviewVue :name="tool.package.name" :data="tools[tool.package.name as string].animation" :hover="false"
-            :disabled="true" />
+        <template v-slot:animation v-if="tools[tool.package.name as keyof Tools].animation">
+          <lottiePreviewVue :name="tool.package.name" :data="tools[tool.package.name as keyof Tools].animation"
+            :hover="false" :disabled="true" />
         </template>
       </pseudoCard>
     </Suspense>
@@ -72,11 +72,41 @@ const tools = {
 </template>
 
 <style>
+:root {
+  --sm-breakpoint: 870px;
+  --xs-breakpoint: 540px;
+}
+
 .main {
   padding-top: 40px;
   max-width: 800px;
   height: fit-content;
   width: 100%;
   margin-bottom: 80px;
+}
+
+/* General horizontal */
+@media (max-width: 870px) {
+  #app {
+    width: 100vw;
+    overflow-x: hidden;
+    ;
+  }
+
+  .main {
+    padding-left: 0px;
+    padding-right: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: calc(100vw - 16px);
+  }
+}
+
+/* General vertical */
+@media (max-width: 540px) {
+  .main {
+    border: 2px solid blue;
+  }
 }
 </style>
