@@ -31,6 +31,13 @@ const animAPI = ref(null);
 const preview = ref(null)
 const firstLoop = ref(false);
 const hover = ref(false);
+
+// Disabling for now since only one animation is active, for future should re-implement
+const isMobileScreen = computed(() => {
+  return true;
+  // return window.innerWidth <= 870
+})
+
 let lastMarker = 0;
 
 interface Props {
@@ -54,7 +61,7 @@ onMounted(async () => {
   animAPI.value = (lottie_api as LottieApi).createAnimationApi(anim.value);
   anim.value.addEventListener('loopComplete', () => {
     if (!firstLoop.value) firstLoop.value = true;
-    if (!hover.value && window.innerWidth > 870) {
+    if (!hover.value && !isMobileScreen.value) {
       anim.value.pause();
     }
     // shuffleColors();
@@ -97,7 +104,7 @@ const isMonochrome = computed(() => {
   // If a pseudo element always be mono
   if (props.disabled) return true;
   // If a mobile screen, never be mono
-  if (window.innerWidth < 870) return false;
+  if (isMobileScreen.value) return false;
   // Otherwise obey hover events on desktop
   if (hover.value) return false;
   // Unless the user isn't hovering, in which case deactivate after first loop
