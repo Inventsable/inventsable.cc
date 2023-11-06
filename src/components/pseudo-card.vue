@@ -259,7 +259,6 @@ const props = defineProps<{
 
 .pseudo-card-subheader-bottom {
   padding-top: 6px;
-  font-size: 11px;
   font-weight: 600;
 }
 
