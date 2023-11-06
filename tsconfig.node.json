@@ -5,10 +5,11 @@
     "vitest.config.*",
     "cypress.config.*",
     "nightwatch.conf.*",
-    "playwright.config.*"
+    "playwright.config.*",
+    "src/**/**/*.json",
+    "src/**/*/*.json"
   ],
   "compilerOptions": {
-    "composite": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "types": ["node"]

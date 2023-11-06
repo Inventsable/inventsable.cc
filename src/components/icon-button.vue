@@ -35,8 +35,4 @@
 .github-wrapper:hover {
   background: rgba(0, 0, 0, 0.2);
 }
-
-.github-wrapper:hover .github-icon {
-  /* fill: #fff */
-}
 </style>

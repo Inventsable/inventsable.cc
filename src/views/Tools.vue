@@ -1,33 +1,42 @@
 <script setup lang="ts">
-// @ts-nocheck
+import { ref } from 'vue';
 import card from '@/components/card.vue';
 import iconCheckpoint from '@/components/checkpoint/icon-header.vue'
 import type { PseudoPackage, HostList, Config } from '@/types';
 import pseudoCard from '@/components/pseudo-card.vue';
-// @ts-ignore - Typescript keeps flagging files made outside default folders
 import checkpointAnimation from '@/assets/previews/checkpoint.json'
-// @ts-ignore - Typescript keeps flagging files made outside default folders
 import toolList from '@/upcoming.json'
 import skeletonCard from '@/components/skeleton-card.vue';
 import lottiePreviewVue from '@/components/lottie-preview.vue';
-import { ref } from 'vue';
-
-const checkpointHover = ref(false);
-const warlockHover = ref(false);
-const snatchHover = ref(false);
-const keyloHover = ref(false);
-const bombeiHover = ref(false);
 
 import warlockAnimation from '@/assets/previews/warlock.json'
 import snatchAnimation from '@/assets/previews/snatch.json'
 import keyloAnimation from '@/assets/previews/keylo.json'
 import bombeiAnimation from '@/assets/previews/bombei.json'
-const animations = {
-  snatch: snatchAnimation,
-  warlock: warlockAnimation,
-  keylo: keyloAnimation,
-  bombei: bombeiAnimation
+
+const tools = {
+  checkpoint: {
+    hover: ref(false),
+    animation: checkpointAnimation
+  },
+  snatch: {
+    hover: ref(false),
+    animation: snatchAnimation
+  },
+  warlock: {
+    hover: ref(false),
+    animation: warlockAnimation
+  },
+  keylo: {
+    hover: ref(false),
+    animation: keyloAnimation
+  },
+  bombei: {
+    hover: ref(false),
+    animation: bombeiAnimation
+  }
 }
+
 </script>
 
 <template>
@@ -37,12 +46,12 @@ const animations = {
         <skeletonCard />
       </template>
       <card repo="checkpoint" label="#ffbe0b" :disabledHosts="[{ name: 'AEFT', disabled: true }]"
-        @mouseenter="checkpointHover = true" @mouseleave="checkpointHover = false">
+        @mouseenter="tools.checkpoint.hover.value = true" @mouseleave="tools.checkpoint.hover.value = false">
         <template v-slot:logo>
           <iconCheckpoint />
         </template>
         <template v-slot:animation>
-          <lottiePreviewVue name="checkpoint" :data="checkpointAnimation" :hover="checkpointHover" />
+          <lottiePreviewVue name="checkpoint" :data="checkpointAnimation" :hover="tools.checkpoint.hover.value" />
         </template>
       </card>
     </Suspense>
@@ -53,9 +62,9 @@ const animations = {
             {{ tool.icon }}
           </span>
         </template>
-        <template v-slot:animation v-if="animations[tool.package.name as string]">
-          <lottiePreviewVue :name="tool.package.name" :data="animations[tool.package.name as string]"
-            :hover="checkpointHover" :disabled="true" />
+        <template v-slot:animation v-if="tools[tool.package.name as string].animation">
+          <lottiePreviewVue :name="tool.package.name" :data="tools[tool.package.name as string].animation" :hover="false"
+            :disabled="true" />
         </template>
       </pseudoCard>
     </Suspense>
