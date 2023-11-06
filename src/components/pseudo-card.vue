@@ -308,8 +308,6 @@ const props = defineProps<{
     border-radius: 0px 0px 0px 0px;
   }
 
-
-
   .pseudo-card-content {
     flex-direction: column;
     justify-content: space-between;
@@ -370,6 +368,34 @@ const props = defineProps<{
   .pseudo-host-icon:nth-child(n+1):not(:first-of-type) {
     margin-top: 0px;
     margin-left: 6px;
+  }
+}
+
+@media only screen and (max-width: 540px) {
+  .pseudo-card-container {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .pseudo-card-content {
+    height: fit-content;
+  }
+
+  .pseudo-tool-icon {
+    display: flex;
+    margin-bottom: 6px
+  }
+
+  .pseudo-card-subheader-bottom {
+    font-size: 14px;
+  }
+
+  .action-btn-disabled.sm {
+    display: none;
+  }
+
+  .action-btn-disabled:not(.sm) {
+    display: flex;
   }
 }
 </style>

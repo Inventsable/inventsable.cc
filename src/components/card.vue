@@ -388,8 +388,21 @@ console.log(hostList.value)
 
 /* General vertical */
 @media only screen and (max-width: 540px) {
-  .main {
-    border: 2px solid blue;
+  .card-container {
+    flex-direction: column;
+    height: fit-content;
+  }
+
+  .card-content {
+    height: fit-content;
+  }
+
+  .card-subheader-bottom {
+    font-size: 14px;
+  }
+
+  .tool-icon {
+    margin-bottom: 8px;
   }
 }
 </style>

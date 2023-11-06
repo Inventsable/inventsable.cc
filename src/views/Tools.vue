@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+import type { Ref } from 'vue';
 import card from '@/components/card.vue';
 import iconCheckpoint from '@/components/checkpoint/icon-header.vue'
 import type { Tools, Tool } from '@/types';
@@ -37,6 +38,16 @@ const tools = {
   }
 } as Tools
 
+const isMobileScreen = computed(() => {
+  return window.innerWidth <= 870
+})
+const toggleHover = (property: Ref<boolean>, value: boolean): void => {
+  if (isMobileScreen) property.value = true
+  else property.value = value;
+}
+
+toggleHover(tools.checkpoint.hover, false)
+
 </script>
 
 <template>
@@ -46,7 +57,7 @@ const tools = {
         <skeletonCard />
       </template>
       <card repo="checkpoint" label="#ffbe0b" :disabledHosts="[{ name: 'AEFT', disabled: true }]"
-        @mouseenter="tools.checkpoint.hover.value = true" @mouseleave="tools.checkpoint.hover.value = false">
+        @mouseenter="toggleHover(tools.checkpoint.hover, true)" @mouseleave="toggleHover(tools.checkpoint.hover, true)">
         <template v-slot:logo>
           <iconCheckpoint />
         </template>
@@ -64,7 +75,7 @@ const tools = {
         </template>
         <template v-slot:animation v-if="tools[tool.package.name as keyof Tools].animation">
           <lottiePreviewVue :name="tool.package.name" :data="tools[tool.package.name as keyof Tools].animation"
-            :hover="false" :disabled="true" />
+            :hover="isMobileScreen" :disabled="true" />
         </template>
       </pseudoCard>
     </Suspense>
@@ -90,7 +101,6 @@ const tools = {
   #app {
     width: 100vw;
     overflow-x: hidden;
-    ;
   }
 
   .main {
@@ -103,10 +113,9 @@ const tools = {
   }
 }
 
-/* General vertical */
-@media (max-width: 540px) {
+@media only screen and (max-width: 540px) {
   .main {
-    border: 2px solid blue;
+    min-width: calc(100vw - 14px);
   }
 }
 </style>

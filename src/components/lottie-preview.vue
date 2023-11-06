@@ -2,10 +2,7 @@
 // @ts-nocheck - Too many errors due to Lottie_API global
 import { ref, onMounted, computed, watch } from 'vue';
 import type { LottieApi, LottieMarker, LottieAnimation, LottieBuilder, LottieAnimationOptions } from '@/types'
-import { setCSS, getCSS } from '@/util/style'
 import * as lottie from "lottie-web";
-
-const shouldShuffle = false;
 
 const colorList = {
   checkpoint: {
@@ -44,31 +41,6 @@ interface Props {
   disabled?: boolean;
 }
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function getRandomBrightColor(min: number = 40, max: number = 80): string {
-  const minLuminance = 40; // Minimum luminance for good contrast
-  const maxLuminance = 70; // Maximum luminance for good contrast
-  const randomColor = () => Math.floor(Math.random() * 256);
-  let hexColor: string;
-  let luminance: number;
-  do {
-    const r = randomColor();
-    const g = randomColor();
-    const b = randomColor();
-    // Calculate luminance using the relative luminance formula (perceived brightness)
-    luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    if (luminance >= minLuminance && luminance <= maxLuminance) {
-      // Convert the RGB values to a hexadecimal string
-      hexColor = `#${(1 << 24 | r << 16 | g << 8 | b).toString(16).slice(1)}`;
-    }
-  } while (!hexColor); // Repeat until a valid color is found
-  return hexColor;
-}
 
 const props = withDefaults(defineProps<Props>(), {
   data: null,
@@ -77,29 +49,19 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 })
 
-// Neat idea but generated colors don't have enough contrast and look ugly
-const shuffleColors = () => {
-  if (!shouldShuffle) return null;
-  colorList[props.name].shuffleColors.forEach((cssVar: string) => {
-    const target = cssVar.replace(/\_/gm, '-');
-    const last = getCSS(target);
-    setCSS(target, last.replace(/\d{1,},/, `${getRandomInt(10, 255)},`))
-  })
-}
-
 onMounted(async () => {
   anim.value = buildAnimation();
   animAPI.value = (lottie_api as LottieApi).createAnimationApi(anim.value);
   anim.value.addEventListener('loopComplete', () => {
     if (!firstLoop.value) firstLoop.value = true;
-    if (!hover.value) {
+    if (!hover.value && window.innerWidth > 870) {
       anim.value.pause();
     }
-    shuffleColors();
+    // shuffleColors();
   })
   anim.value.addEventListener('enterFrame', (frame) => {
     if (lastMarker && !hover.value && firstLoop && frame.currentTime >= lastMarker) {
-      shuffleColors();
+      // shuffleColors();
       anim.value.pause();
     }
   })
@@ -107,7 +69,7 @@ onMounted(async () => {
     hover.value = value;
     if (!value) {
       lastMarker = findNearestStopPoint(anim.value.currentRawFrame)
-    } else {
+    } else if (!props.disabled) {
       anim.value.play();
     }
   });
@@ -130,22 +92,17 @@ function buildAnimation() {
   return (lottie as LottieBuilder).loadAnimation(animData);
 }
 
-function hexToGrayscale(hex: string): string {
-  hex = hex.replace('#', '');
-  const r = parseInt(hex.slice(0, 2), 16); const g = parseInt(hex.slice(2, 4), 16);
-  const b = parseInt(hex.slice(4, 6), 16);
-  const grayValue = Math.round(0.299 * r + 0.587 * g + 0.114 * b);
-  const grayHex = grayValue.toString(16).padStart(2, '0');
-  return `#${grayHex}${grayHex}${grayHex}`;
-}
-
 const isMonochrome = computed(() => {
+  // If a pseudo element always be mono
   if (props.disabled) return true;
+  // If a mobile screen, never be mono
+  if (window.innerWidth < 870) return false;
+  // Otherwise obey hover events on desktop
   if (hover.value) return false;
+  // Unless the user isn't hovering, in which case deactivate after first loop
   if (!firstLoop.value) return false;
   return true;
 })
-
 </script>
 
 <template>
@@ -178,7 +135,31 @@ const isMonochrome = computed(() => {
   --quint: cubic-bezier(0.84, 0.00, 0.16, 1.00);
 }
 
+.lottie-animation {
+  width: 103%;
+  height: 100%;
+  min-height: 210px;
+}
 
+.lottie-container {
+  box-sizing: border-box;
+  width: 420px;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* General vertical */
+@media (max-width: 540px) {
+  .lottie-container {
+    width: 100%;
+    height: fit-content;
+  }
+}
 
 .mono {
   -webkit-filter: grayscale(100%);
@@ -234,23 +215,6 @@ const isMonochrome = computed(() => {
 
 .cp-bg-3 {
   fill: #cb5656;
-}
-
-.lottie-container {
-  box-sizing: border-box;
-  width: 420px;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.lottie-animation {
-  width: 103%;
-  height: 100%;
-  min-height: 210px;
 }
 
 .wl-bg-1 {
