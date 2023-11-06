@@ -38,8 +38,10 @@ const tools = {
   }
 } as Tools
 
+// Disabling for now since only one animation is active, for future should re-implement
 const isMobileScreen = computed(() => {
-  return window.innerWidth <= 870
+  return true;
+  // return window.innerWidth <= 870
 })
 const toggleHover = (property: Ref<boolean>, value: boolean): void => {
   if (isMobileScreen.value) property.value = true
