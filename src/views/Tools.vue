@@ -16,12 +16,17 @@ const checkpointHover = ref(false);
 const warlockHover = ref(false);
 const snatchHover = ref(false);
 const keyloHover = ref(false);
+const bombeiHover = ref(false);
 
 import warlockAnimation from '@/assets/previews/warlock.json'
 import snatchAnimation from '@/assets/previews/snatch.json'
+import keyloAnimation from '@/assets/previews/keylo.json'
+import bombeiAnimation from '@/assets/previews/bombei.json'
 const animations = {
   snatch: snatchAnimation,
-  warlock: warlockAnimation
+  warlock: warlockAnimation,
+  keylo: keyloAnimation,
+  bombei: bombeiAnimation
 }
 </script>
 

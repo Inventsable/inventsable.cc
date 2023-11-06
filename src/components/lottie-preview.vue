@@ -123,7 +123,7 @@ function buildAnimation() {
     animType: "svg",
     loop: true,
     prerender: true,
-    autoplay: true,
+    autoplay: !props.disabled,
     animationData: props.data
   }
   // @ts-ignore - Lottie_API is legacy and a pre-loaded global var here

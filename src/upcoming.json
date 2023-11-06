@@ -51,7 +51,7 @@
     "package": {
       "name": "keylo",
       "version": "0.0.1",
-      "description": "The realtime tutorial-making platform",
+      "description": "Realtime tutorial-making and taking",
       "homepage": "https://google.com"
     },
     "config": {
