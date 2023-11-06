@@ -1,6 +1,6 @@
 ![](./public/tools-preview.png)
 
-### Downloads on [the live site](https://adorable-piroshki-6c939c.netlify.app/tools) do not work yet because I'm just focusing on design for now
+### Downloads on [the live site](https://adorable-piroshki-6c939c.netlify.app) do not work yet because I'm just focusing on design for now
 
 I've thought a lot about what I want in a website, looking at others' like Lovatt or Battleaxe over the last few years and seeing how often they're updated and what goes into updating them, and so on. I want to do this in as clean and simple of a way that'd be easy to modify and organize in the future. What I have so far is this:
 
