@@ -65,6 +65,7 @@ onMounted(async () => {
       anim.value.pause();
     }
   })
+  anim.value.setSpeed(1.2)
   watch(() => props.hover, (value) => {
     hover.value = value;
     if (!value) {

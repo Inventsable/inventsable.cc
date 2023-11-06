@@ -1,40 +1,20 @@
-# inv-site
+![](./public/tools-preview.png)
 
-This template should help get you started developing with Vue 3 in Vite.
+### Downloads do not work yet because I'm just focusing on design.
 
-## Recommended IDE Setup
+I've thought a lot about what I want in a website, looking at others' like Lovatt or Battleaxe over the last few years and seeing how often they're updated and what goes into updating them, and so on. I want to do this in as clean and simple of a way that'd be easy to modify and organize in the future. What I have so far is this:
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```html
+<card repo="checkpoint" :disabledHosts="[{ name: 'AEFT', disabled: true }]">
+  <template v-slot:logo>
+    <iconCheckpoint />
+  </template>
+  <template v-slot:animation>
+    <lottiePreviewVue name="checkpoint" :data="checkpointAnimation" />
+  </template>
+</card>
 ```
 
-### Compile and Hot-Reload for Development
+With the exception of the Lottie file and logo, all the data in the screenshot above for Checkpoint is being fetched on site load from my Github in realtime -- name, version, github link, download link, app host list, and more which isn't displayed. All I supply is the repo's namespace. I just need to update Checkpoint's (or any other tool's) repo without ever needing to touch the site, and all the data here will _always_ be up to date without me ever updating it manually. You could do this through Github tokens as well to access private repos _but open source keeps things simple and I don't really need or want your money_.
 
-```sh
-npm run dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
+Particularly happy with the animation here, which acts differently depending on desktop or mobile, and has hover logic on the card to display in color and play then when hovered off will go back to monochrome and pause at the next segment. I've missed doing fun / simple animation and giving it interacivity with code.
