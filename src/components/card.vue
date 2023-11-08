@@ -42,8 +42,21 @@ const hostList = computed((): hostList[] => {
   return [].concat(config.hosts, props.disabledHosts)
 })
 
-console.log(hostList.value)
+const downloadLink = computed((): string => {
+  return `https://github.com/Inventsable/${pkg.name}/raw/master/dist/zxp/${config.id}.zxp`
+})
 
+const gitbubLink = computed((): string => {
+  return `https://github.com/Inventsable/${pkg.name}`
+})
+
+const openGHRepo = async (): Promise<void> => {
+  // window.open(gitbubLink.value)?.focus();
+}
+
+const download = async (): Promise<void> => {
+  // window.open(downloadLink.value)?.focus()
+}
 </script>
 
 <!-- <slot name="icon"></slot> -->
@@ -95,13 +108,13 @@ console.log(hostList.value)
           </div>
         </div>
         <div class="card-actions">
-          <div class="action-btn">
+          <div class="action-btn" @click="download">
             DOWNLOAD
           </div>
         </div>
       </div>
       <div class="card-sidebar">
-        <iconButton />
+        <iconButton @click="openGHRepo" />
       </div>
     </div>
   </div>
