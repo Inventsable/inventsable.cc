@@ -248,6 +248,7 @@ console.log(hostList.value)
 }
 
 .tool-icon {
+  margin-bottom: 8px;
   /* box-sizing: border-box; */
   width: 32px;
   height: 32px;

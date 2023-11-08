@@ -300,7 +300,7 @@ const props = defineProps<{
   }
 
   .pseudo-tool-icon {
-    display: none;
+    margin-bottom: 6px;
   }
 
   .action-btn-disabled.sm {
