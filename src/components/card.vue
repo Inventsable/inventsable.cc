@@ -261,7 +261,7 @@ const download = async (): Promise<void> => {
 }
 
 .tool-icon {
-  margin-bottom: 8px;
+  margin-bottom: 0px;
   /* box-sizing: border-box; */
   width: 32px;
   height: 32px;
